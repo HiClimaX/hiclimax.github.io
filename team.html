@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team — HiClimaX</title>
+  <meta name="description" content="Meet the scientists and engineers building HiClimaX." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ─── TEAM CARD ────────────────────────────────────────────── */
+    .team-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 28px; text-align: center; transition: all .3s ease; position: relative; overflow: hidden;
+    }
+    .team-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--sky), var(--teal));
+    }
+    .team-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--sky);
+    }
+    .team-avatar {
+      width: 120px; height: 120px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--sky), var(--teal));
+      margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 48px; color: var(--white);
+      overflow: hidden;
+      border: 3px solid var(--white);
+      box-shadow: 0 4px 12px rgba(46,156,202,.2);
+    }
+    .team-name {
+      font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700;
+      color: var(--navy); margin-bottom: 4px;
+    }
+    .team-role {
+      font-size: 13px; font-weight: 600; color: var(--sky); text-transform: uppercase;
+      letter-spacing: .06em; margin-bottom: 8px;
+    }
+    .team-affiliation {
+      font-size: 14px; color: var(--muted); margin-bottom: 16px; line-height: 1.5;
+    }
+    .team-links {
+      display: flex; gap: 12px; justify-content: center;
+    }
+    .team-links a {
+      width: 36px; height: 36px; border-radius: 8px; background: var(--light);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--sky); transition: all .2s ease;
+    }
+    .team-links a:hover {
+      background: var(--sky); color: var(--white);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ────────────────────────────────────────────────────────── -->
+<nav>
+  <div class="inner">
+    <div class="nav-logo">
+      <span class="dot"></span>
+      HiClimaX
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#methods">Methods</a>
+      <a href="index.html#workflow">How It Works</a>
+      <a href="index.html#cities">Case Studies</a>
+      <a href="team.html">Team</a>
+      <a href="https://github.com/HiClimaX" class="btn btn-primary"><i class="fa-brands fa-github"></i> GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────── -->
+<section class="hero" style="min-height: 50vh; padding-top: 120px;">
+  <div class="hero-grid"></div>
+  <div class="container" style="width:100%">
+    <div class="hero-content" style="max-width: 800px;">
+      <div class="hero-eyebrow fade-up">
+        <span>Meet the team</span>
+      </div>
+      <h1 class="fade-up-2">
+        Scientists & Engineers<br>Building the <span class="accent">Future of Urban Climate</span>
+      </h1>
+      <p class="fade-up-3">
+        HiClimaX is developed by a distributed team of climate scientists, atmospheric modelers, machine learning engineers, and research software engineers across universities, research institutes, and partner organizations worldwide.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CORE TEAM ──────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="tag">Core Team</span>
+      <h2 class="section-title" style="text-align:center;margin:0 auto;">Leadership & Architecture</h2>
+    </div>
+    <div class="grid-3" id="core-team-grid">
+      <!-- Populated by JavaScript from team-data.csv -->
+    </div>
+  </div>
+</section>
+
+<!-- ── METHOD LEADS ──────────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="tag">Method Leads</span>
+      <h2 class="section-title" style="text-align:center;margin:0 auto;">Experts in each downscaling approach</h2>
+    </div>
+    <div class="grid-3" id="method-team-grid">
+      <!-- Populated by JavaScript from team-data.csv -->
+    </div>
+  </div>
+</section>
+
+<!-- ── CASE STUDY LEADS ──────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="tag">Regional Leads</span>
+      <h2 class="section-title" style="text-align:center;margin:0 auto;">Validation & case study expertise</h2>
+    </div>
+    <div class="grid-3" id="regional-team-grid">
+      <!-- Populated by JavaScript from team-data.csv -->
+    </div>
+  </div>
+</section>
+
+<!-- ── ENGINEERING & SUPPORT ─────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="tag">Engineering & Community</span>
+      <h2 class="section-title" style="text-align:center;margin:0 auto;">Software, infrastructure & outreach</h2>
+    </div>
+    <div class="grid-4" id="engineering-team-grid">
+      <!-- Populated by JavaScript from team-data.csv -->
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTRIBUTING ──────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="cta-banner">
+      <h2>Want to join the team?</h2>
+      <p>We're always looking for collaborators — climate scientists, software engineers, and domain experts. Whether you want to develop a new method, validate in a new city, or improve the framework itself.</p>
+      <div class="btns">
+        <a href="mailto:doan.van.gb@u.tsukuba.ac.jp" class="btn btn-primary"><i class="fa-solid fa-envelope"></i> Get in Touch</a>
+        <a href="https://github.com/HiClimaX/HiClimaX/blob/main/CONTRIBUTING.md" class="btn btn-outline"><i class="fa-brands fa-github"></i> Contributing Guide</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>HiClimaX</h3>
+        <p>A High-resolution Climate Downscaling Multi-Approach System. Open-source, ensemble-based, urban-focused.</p>
+        <br>
+        <p style="font-size:13px;">Center for Computational Sciences<br>University of Tsukuba, Japan</p>
+      </div>
+      <div class="footer-col">
+        <h4>Framework</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#methods">Methods</a></li>
+          <li><a href="https://github.com/HiClimaX">GitHub</a></li>
+          <li><a href="#">Documentation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="index.html#cities">Case Studies</a></li>
+          <li><a href="#">GMD Paper</a></li>
+          <li><a href="#">Publications</a></li>
+          <li><a href="team.html">Team</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="#">Contributing</a></li>
+          <li><a href="#">Discord</a></li>
+          <li><a href="index.html#ecosystem">Services</a></li>
+          <li><a href="mailto:doan.van.gb@u.tsukuba.ac.jp">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 HiClimaX · University of Tsukuba · MIT Licence · Built for the climate community</p>
+      <div class="social-links">
+        <a href="https://github.com/HiClimaX"><i class="fa-brands fa-github"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="mailto:doan.van.gb@u.tsukuba.ac.jp"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Parse CSV properly (handles quoted values)
+  function parseCSV(text) {
+    const lines = text.split('\n').filter(line => line.trim());
+    if (lines.length < 2) return [];
+    
+    const headers = lines[0].split(',').map(h => h.trim());
+    const data = [];
+    
+    for (let i = 1; i < lines.length; i++) {
+      const values = lines[i].split(',').map(v => v.trim());
+      const row = {};
+      headers.forEach((header, idx) => {
+        row[header] = values[idx] || '';
+      });
+      data.push(row);
+    }
+    return data;
+  }
+
+  // Fetch and parse team data from CSV
+  async function loadTeamData() {
+    try {
+      console.log('🔄 Loading team data...');
+      
+      // Try to load CSV
+      let csvData = null;
+      try {
+        const response = await fetch('data/team/members.csv');
+        if (response.ok) {
+          const text = await response.text();
+          csvData = parseCSV(text);
+          console.log('✅ CSV loaded:', csvData.length, 'members');
+        } else {
+          console.warn('⚠️ CSV fetch failed:', response.status);
+        }
+      } catch (fetchError) {
+        console.warn('⚠️ Fetch error (might be file:// protocol):', fetchError.message);
+      }
+      
+      // If no CSV data, show fallback message
+      if (!csvData || csvData.length === 0) {
+        console.warn('⚠️ No CSV data found, showing demo mode');
+        csvData = getDemoTeamData();
+      }
+      
+      // Organize by category
+      const teams = {
+        core: csvData.filter(m => m.category === 'core'),
+        method: csvData.filter(m => m.category === 'method'),
+        regional: csvData.filter(m => m.category === 'regional'),
+        engineering: csvData.filter(m => m.category === 'engineering')
+      };
+      
+      console.log('📊 Teams:', {
+        core: teams.core.length,
+        method: teams.method.length,
+        regional: teams.regional.length,
+        engineering: teams.engineering.length
+      });
+      
+      // Render all teams
+      if (teams.core.length > 0) renderTeam(teams.core, '#core-team-grid');
+      if (teams.method.length > 0) renderTeam(teams.method, '#method-team-grid');
+      if (teams.regional.length > 0) renderTeam(teams.regional, '#regional-team-grid');
+      if (teams.engineering.length > 0) renderTeam(teams.engineering, '#engineering-team-grid');
+      
+      // Animate on scroll
+      animateOnScroll();
+      console.log('✅ Team page rendered successfully!');
+    } catch (error) {
+      console.error('❌ Fatal error:', error);
+    }
+  }
+  
+  // Demo data for testing
+  function getDemoTeamData() {
+    return [
+      {
+        name: 'Doan Van Giang',
+        role: 'Principal Investigator',
+        affiliation: 'Center for Computational Sciences · University of Tsukuba · Japan',
+        category: 'core',
+        emoji: '👨‍🔬',
+        photo: '',
+        github: 'https://github.com',
+        email: 'doan.van.gb@u.tsukuba.ac.jp',
+        orcid: 'https://orcid.org'
+      },
+      {
+        name: 'Dr. Sarah Chen',
+        role: 'Lead Architect',
+        affiliation: 'Atmospheric Modeling Group · ETH Zurich · Switzerland',
+        category: 'core',
+        emoji: '👩‍💻',
+        photo: '',
+        github: 'https://github.com',
+        email: 'sarah.chen@ethz.ch',
+        orcid: 'https://orcid.org'
+      },
+      {
+        name: 'Prof. James Kumar',
+        role: 'Co-Investigator',
+        affiliation: 'Department of Climate Dynamics · MIT · United States',
+        category: 'core',
+        emoji: '👨‍💼',
+        photo: '',
+        github: 'https://github.com',
+        email: 'jkumar@mit.edu',
+        orcid: 'https://orcid.org'
+      },
+      {
+        name: 'Dr. Marco Bianchi',
+        role: 'Dynamical Downscaling',
+        affiliation: 'Regional Climate Modeling Lab · University of Bologna · Italy',
+        category: 'method',
+        emoji: '💨',
+        photo: '',
+        github: 'https://github.com',
+        email: 'm.bianchi@unibo.it',
+        orcid: 'https://orcid.org'
+      },
+      {
+        name: 'Dr. Amara Okonkwo',
+        role: 'Pseudo-Global Warming',
+        affiliation: 'Climate Risk Research Group · University of Lagos · Nigeria',
+        category: 'method',
+        emoji: '🌍',
+        photo: '',
+        github: 'https://github.com',
+        email: 'aokonkwo@unilag.edu.ng',
+        orcid: 'https://orcid.org'
+      },
+      {
+        name: 'Dr. Helena Pettersson',
+        role: 'Statistical-Dynamical',
+        affiliation: 'Atmospheric Statistics Lab · Swedish Meteorological Institute',
+        category: 'method',
+        emoji: '📊',
+        photo: '',
+        github: 'https://github.com',
+        email: 'helena.pettersson@smhi.se',
+        orcid: 'https://orcid.org'
+      }
+    ];
+  }
+  
+  function renderTeam(members, selector) {
+    const grid = document.querySelector(selector);
+    if (!grid) {
+      console.warn(`Grid not found: ${selector}`);
+      return;
+    }
+    
+    console.log(`Rendering ${members.length} members to ${selector}`);
+    
+    members.forEach((member, index) => {
+      // Determine fade-up animation class
+      const fadeUpClass = `fade-up${index > 0 ? `-${Math.min(index + 1, 4)}` : ''}`;
+      
+      // Format affiliation (replace · with line breaks)
+      const affiliation = (member.affiliation || '').split(' · ').join('<br>');
+      
+      // Build avatar: emoji or placeholder
+      let avatarHTML = member.emoji || '👤';
+      
+      // If photo exists, try to load it (with fallback to emoji)
+      if (member.photo && member.photo.trim() !== '') {
+        avatarHTML = `<img src="${member.photo}" alt="${member.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.parentElement.innerHTML='${member.emoji || '👤'}'" />`;
+      }
+      
+      // Build social links (show what exists)
+      let socialLinksHTML = '';
+      
+      if (member.email && member.email.trim() !== '') {
+        socialLinksHTML += `<a href="mailto:${member.email}" title="Email" style="cursor:pointer;"><i class="fa-solid fa-envelope"></i></a>`;
+      }
+      
+      if (member.github && member.github.trim() !== '') {
+        socialLinksHTML += `<a href="${member.github}" title="GitHub" target="_blank" style="cursor:pointer;"><i class="fa-brands fa-github"></i></a>`;
+      }
+      
+      if (member.orcid && member.orcid.trim() !== '') {
+        socialLinksHTML += `<a href="${member.orcid}" title="ORCID" target="_blank" style="cursor:pointer;"><i class="fa-solid fa-user-check"></i></a>`;
+      }
+      
+      // Create card
+      const card = document.createElement('div');
+      card.className = `team-card ${fadeUpClass}`;
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease, border-color 0.25s ease';
+      
+      card.innerHTML = `
+        <div class="team-avatar">${avatarHTML}</div>
+        <div class="team-name">${member.name || 'Unknown'}</div>
+        <div class="team-role">${member.role || ''}</div>
+        <div class="team-affiliation">${affiliation || ''}</div>
+        <div class="team-links">${socialLinksHTML}</div>
+      `;
+      
+      grid.appendChild(card);
+      console.log(`✅ Added: ${member.name} (${member.role})`);
+    });
+  }
+  
+  function animateOnScroll() {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.team-card').forEach(el => {
+      observer.observe(el);
+    });
+  }
+
+  // Smooth nav scroll
+  const nav = document.querySelector('nav');
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      nav.style.background = window.scrollY > 60
+        ? 'rgba(10,22,40,0.97)' : 'rgba(10,22,40,0.92)';
+    });
+  }
+
+  // Load team data when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadTeamData);
+  } else {
+    loadTeamData();
+  }
+</script>
+</body>
+</html>

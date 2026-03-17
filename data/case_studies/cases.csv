@@ -1,0 +1,4 @@
+id,city,region,country,emoji,description,climate_context,metrics_temp,metrics_precip,lead_researcher,organization,photo
+tokyo,Tokyo,Kanto,Japan,🗾,Urban heat island effects and climate resilience in mega-cities,Temperate with seasonal variation,-2.5°C to 5.0°C changes,±15% precipitation shift,Dr. Kenji Yamamoto,Tokyo Metropolitan University,data/case_studies/assets/tokyo-skyline.jpg
+hcmc,Ho Chi Minh City,Southeast,Vietnam,🌴,Tropical delta vulnerability and sea-level rise adaptation,Tropical monsoon climate,+1.5°C to +3.0°C warming,+10% to +20% extreme rainfall,Dr. Nguyen Anh Duc,University of Science Vietnam,data/case_studies/assets/hcmc-delta.jpg
+brussels,Brussels,Central Europe,Belgium,🇧🇪,Urban adaptation and rainfall intensification in temperate regions,Temperate oceanic,-0.5°C to 2.5°C scenarios,+15% to +30% extreme precipitation,Dr. Romain Hamdi,Royal Meteorological Institute,data/case_studies/assets/brussels-city.jpg

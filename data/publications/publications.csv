@@ -1,0 +1,7 @@
+id,title,authors,year,journal,doi,url,type,tags
+pub001,High-resolution climate projections for Asian mega-cities,Doan V.G. et al.,2024,Nature Climate Change,10.1038/nclimate.2024.001,https://example.com,Journal Article,downscaling climate-modeling
+pub002,Comparative assessment of downscaling methods for urban climate,Chen S. et al.,2024,Geoscientific Model Development,10.5194/gmd-2024-001,https://example.com,Journal Article,methods-comparison
+pub003,Machine learning approaches for precipitation downscaling,Mueller L. et al.,2023,Journal of Climate,10.1175/JCLI-D-23-001,https://example.com,Journal Article,machine-learning
+pub004,Urban heat resilience framework for tropical cities,Tanaka Y. et al.,2023,Urban Climate,10.1016/j.uclim.2023.001,https://example.com,Journal Article,urban-climate
+pub005,HiClimaX: An integrated climate downscaling platform,Kumar J. et al.,2024,Earth System Science Data,10.5194/essd-2024-001,https://example.com,Software/Data Paper,framework-overview
+pub006,Ensemble methods for climate projection uncertainty,Yamamoto K. et al.,2023,Climate Dynamics,10.1007/s00382-023-001,https://example.com,Journal Article,uncertainty-quantification

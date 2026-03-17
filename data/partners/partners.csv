@@ -1,0 +1,9 @@
+id,name,type,region,website,logo,focus_areas,status
+tsukuba,University of Tsukuba,Academic Institution,Asia,https://www.tsukuba.ac.jp,data/partners/logos/tsukuba.png,Climate modeling · Computational science,Active
+ethz,ETH Zurich,Academic Institution,Europe,https://www.ethz.ch,data/partners/logos/ethz.png,Atmospheric science · Alpine climate,Active
+mit,MIT,Academic Institution,North America,https://www.mit.edu,data/partners/logos/mit.png,Climate dynamics · Earth science,Active
+smhi,Swedish Meteorological Institute,Research Organization,Europe,https://www.smhi.se,data/partners/logos/smhi.png,Regional climate · Weather forecasting,Active
+unibo,University of Bologna,Academic Institution,Europe,https://www.unibo.it,data/partners/logos/unibo.png,Regional climate modeling,Active
+unilag,University of Lagos,Academic Institution,Africa,https://www.unilag.edu.ng,data/partners/logos/unilag.png,Tropical climate · African climate,Active
+iisc,Indian Institute of Science,Academic Institution,Asia,https://www.iisc.ac.in,data/partners/logos/iisc.png,Urban microclimate · Monsoon climate,Active
+mpimet,Max Planck Institute for Meteorology,Research Organization,Europe,https://www.mpimet.mpg.de,data/partners/logos/mpimet.png,Climate modeling · AI applications,Active

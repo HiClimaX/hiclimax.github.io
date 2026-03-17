@@ -1,0 +1,7 @@
+id,name,abbreviation,full_name,emoji,description,lead_researcher,use_cases,resolution,time_scale
+dd,Dynamical Downscaling,D-DS,Dynamical Downscaling System,💨,Physics-based regional climate modeling using nested high-resolution simulations,Dr. Marco Bianchi,Regional climate projections,~4-12 km,Seasonal to decadal
+pgw,Pseudo-Global Warming,PGW,Pseudo-Global Warming Method,🌍,Combines historical climate with global warming signals for realistic future scenarios,Dr. Amara Okonkwo,Attribution studies,Variable,Event-based
+sd,Statistical-Dynamical,SD-DS,Statistical-Dynamical Downscaling,📊,Combines statistical relationships with dynamical model outputs,Dr. Helena Pettersson,Rapid projections,Fine-scale,Monthly to seasonal
+lsp,Land-Surface Physics,LSP-DS,Land-Surface Physics Downscaling,🏙️,Focuses on urban-scale heat and moisture interactions,Dr. Rajesh Patel,Urban climate,City-scale,Daily to seasonal
+sds,Statistical Downscaling System,SDS,Statistical Downscaling System,📈,Machine learning and statistical relationships from observations,Dr. Yuki Tanaka,Extreme events,Fine-scale grid,Daily to monthly
+ai,AI-Based Methods,AI-DS,AI-Based Downscaling System,🤖,Deep learning and neural networks for pattern recognition,Dr. Lena Mueller,Pattern prediction,Flexible,Real-time to seasonal

@@ -1,0 +1,17 @@
+name,role,affiliation,category,emoji,photo,github,email,orcid
+Doan Van Giang,Principal Investigator,Center for Computational Sciences · University of Tsukuba · Japan,core,👨‍🔬,data/team/photos/doan-van-giang.jpg,https://github.com,doan.van.gb@u.tsukuba.ac.jp,https://orcid.org
+Dr. Sarah Chen,Lead Architect,Atmospheric Modeling Group · ETH Zurich · Switzerland,core,👩‍💻,data/team/photos/sarah-chen.jpg,https://github.com,sarah.chen@ethz.ch,https://orcid.org
+Prof. James Kumar,Co-Investigator,Department of Climate Dynamics · MIT · United States,core,👨‍💼,data/team/photos/james-kumar.jpg,https://github.com,jkumar@mit.edu,https://orcid.org
+Dr. Marco Bianchi,Dynamical Downscaling,Regional Climate Modeling Lab · University of Bologna · Italy,method,💨,data/team/photos/marco-bianchi.jpg,https://github.com,m.bianchi@unibo.it,https://orcid.org
+Dr. Amara Okonkwo,Pseudo-Global Warming,Climate Risk Research Group · University of Lagos · Nigeria,method,🌍,data/team/photos/amara-okonkwo.jpg,https://github.com,aokonkwo@unilag.edu.ng,https://orcid.org
+Dr. Helena Pettersson,Statistical-Dynamical,Atmospheric Statistics Lab · Swedish Meteorological Institute,method,📊,data/team/photos/helena-pettersson.jpg,https://github.com,helena.pettersson@smhi.se,https://orcid.org
+Dr. Rajesh Patel,Land-Surface Physics,Urban Microclimate Research · Indian Institute of Science · India,method,🏙️,data/team/photos/rajesh-patel.jpg,https://github.com,rpatel@iisc.ac.in,https://orcid.org
+Dr. Yuki Tanaka,Statistical Methods,Data Climate Group · University of Tokyo · Japan,method,📈,data/team/photos/yuki-tanaka.jpg,https://github.com,ytanaka@cp.u-tokyo.ac.jp,https://orcid.org
+Dr. Lena Mueller,Machine Learning,Climate AI Lab · Max Planck Institute · Germany,method,🤖,data/team/photos/lena-mueller.jpg,https://github.com,lmueller@mpimet.mpg.de,https://orcid.org
+Dr. Kenji Yamamoto,Tokyo Lead,Urban Climate Lab · Tokyo Metropolitan University,regional,🇯🇵,data/team/photos/kenji-yamamoto.jpg,https://github.com,k.yamamoto@tmu.ac.jp,https://orcid.org
+Dr. Nguyen Anh Duc,Ho Chi Minh City Lead,Tropical Climate Institute · University of Science · Vietnam,regional,🇻🇳,data/team/photos/nguyen-anh-duc.jpg,https://github.com,nducan@hus.edu.vn,https://orcid.org
+Dr. Romain Hamdi,Brussels Lead,Meteorological Research Unit · Royal Meteorological Institute · Belgium,regional,🇧🇪,data/team/photos/romain-hamdi.jpg,https://github.com,r.hamdi@meteo.be,https://orcid.org
+Alex Johnson,RSE Lead,Software Engineering · University of Edinburgh · UK,engineering,💻,data/team/photos/alex-johnson.jpg,https://github.com,alex.johnson@ed.ac.uk,
+Dr. Sofia Garcia,Data Manager,Data Systems · Barcelona Supercomputing Center,engineering,🗂️,data/team/photos/sofia-garcia.jpg,https://github.com,sgarcia@bsc.es,https://orcid.org
+Thomas Lee,Documentation,Technical Writer · Climate Research Institute,engineering,📚,data/team/photos/thomas-lee.jpg,https://github.com,thomas.lee@climateresearch.org,
+Dr. Zara Malik,Community Manager,Outreach & Training · Open Science Foundation,engineering,🤝,data/team/photos/zara-malik.jpg,https://github.com,zara.malik@opensciencefoundation.org,https://orcid.org

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datasets — HiClimaX</title>
+  <meta name="description" content="Download HiClimaX climate downscaling datasets for research and urban adaptation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ─── DATASET CARD ─────────────────────────────────────────── */
+    .dataset-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: all .3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .dataset-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--sky), var(--teal));
+    }
+    .dataset-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--sky);
+    }
+    .dataset-header {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--light);
+    }
+    .dataset-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .dataset-domain {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--sky);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .dataset-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+    .dataset-meta-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .dataset-meta-label {
+      font-weight: 600;
+      color: var(--muted);
+      min-width: 60px;
+    }
+    .dataset-meta-value {
+      color: var(--text);
+    }
+    .dataset-methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .method-badge {
+      background: linear-gradient(135deg, var(--sky), var(--teal));
+      color: var(--white);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+    .dataset-variables {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+    .dataset-variables strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .dataset-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--light);
+      padding-top: 12px;
+      margin-top: auto;
+    }
+    .dataset-status {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+    .status-available {
+      background: rgba(34, 197, 94, 0.1);
+      color: #16a34a;
+    }
+    .status-review {
+      background: rgba(59, 130, 246, 0.1);
+      color: #2563eb;
+    }
+    .status-curation {
+      background: rgba(249, 115, 22, 0.1);
+      color: #d97706;
+    }
+    .status-coming {
+      background: rgba(107, 114, 128, 0.1);
+      color: #4b5563;
+    }
+    .dataset-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .dataset-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--light);
+      border-radius: 6px;
+      color: var(--sky);
+      transition: all .2s ease;
+      font-size: 12px;
+    }
+    .dataset-actions a:hover {
+      background: var(--sky);
+      color: var(--white);
+    }
+
+    /* ─── FILTERS ──────────────────────────────────────────────── */
+    .filters {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 14px;
+      align-self: center;
+    }
+    .filter-btn {
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      transition: all .2s ease;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--sky);
+      color: var(--white);
+      border-color: var(--sky);
+    }
+
+    /* ─── STATS ────────────────────────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .stat-card {
+      background: linear-gradient(135deg, var(--sky), var(--teal));
+      color: var(--white);
+      padding: 20px;
+      border-radius: var(--radius);
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 13px;
+      font-weight: 600;
+      opacity: .9;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    @media (max-width: 900px) {
+      .dataset-meta {
+        grid-template-columns: 1fr;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .filters {
+        gap: 8px;
+      }
+      .filter-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ────────────────────────────────────────────────────────── -->
+<nav>
+  <div class="inner">
+    <div class="nav-logo">
+      <span class="dot"></span>
+      HiClimaX
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#methods">Methods</a>
+      <a href="index.html#workflow">How It Works</a>
+      <a href="index.html#cities">Case Studies</a>
+      <a href="datasets.html">Datasets</a>
+      <a href="team.html">Team</a>
+      <a href="https://github.com/HiClimaX" class="btn btn-primary"><i class="fa-brands fa-github"></i> GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────── -->
+<section class="hero" style="min-height: 50vh; padding-top: 120px;">
+  <div class="hero-grid"></div>
+  <div class="container" style="width:100%">
+    <div class="hero-content" style="max-width: 800px;">
+      <div class="hero-eyebrow fade-up">
+        <span>Publicly Available</span>
+      </div>
+      <h1 class="fade-up-2">
+        Climate Downscaling<br><span class="accent">Datasets</span>
+      </h1>
+      <p class="fade-up-3">
+        Download high-resolution climate projections from HiClimaX and partner institutions. Multiple methods, regions, and spatial resolutions for research and urban adaptation planning.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATISTICS ────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="stats-grid" id="stats-grid">
+      <!-- Populated by JavaScript -->
+    </div>
+  </div>
+</section>
+
+<!-- ── FILTERS ───────────────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:32px;">
+      <h2 class="section-title">Find Datasets</h2>
+    </div>
+    <div class="filters">
+      <div class="filter-group">
+        <span class="filter-label"><i class="fa-solid fa-check"></i> Status:</span>
+        <button class="filter-btn active" data-filter="status" data-value="all">All</button>
+        <button class="filter-btn" data-filter="status" data-value="Available">Available</button>
+        <button class="filter-btn" data-filter="status" data-value="In Review">In Review</button>
+        <button class="filter-btn" data-filter="status" data-value="Under Curation">Curating</button>
+        <button class="filter-btn" data-filter="status" data-value="Coming Soon">Coming Soon</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label"><i class="fa-solid fa-cube"></i> Method:</span>
+        <button class="filter-btn active" data-filter="method" data-value="all">All</button>
+        <button class="filter-btn" data-filter="method" data-value="D-DS">D-DS</button>
+        <button class="filter-btn" data-filter="method" data-value="PGW">PGW</button>
+        <button class="filter-btn" data-filter="method" data-value="SDS">SDS</button>
+        <button class="filter-btn" data-filter="method" data-value="LSP-DS">LSP-DS</button>
+        <button class="filter-btn" data-filter="method" data-value="AI-DS">AI-DS</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DATASETS GRID ─────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div id="dataset-count" style="text-align:center;margin-bottom:24px;color:var(--muted);font-size:14px;"></div>
+    <div class="grid-3" id="datasets-grid">
+      <!-- Populated by JavaScript -->
+    </div>
+  </div>
+</section>
+
+<!-- ── DATA USAGE ────────────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div style="max-width:800px;margin:0 auto;">
+      <h2 class="section-title" style="text-align:center;margin-bottom:32px;">How to Use Datasets</h2>
+      
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px;">
+        <div style="background:var(--light);padding:24px;border-radius:var(--radius);">
+          <h3 style="color:var(--navy);margin-bottom:12px;"><i class="fa-solid fa-download"></i> Download</h3>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Access all datasets via Zenodo with full DOI citations.</p>
+          <a href="https://zenodo.org/search?q=hiclimax" class="btn btn-outline" style="font-size:13px;">
+            <i class="fa-brands fa-github"></i> Zenodo Repository
+          </a>
+        </div>
+        <div style="background:var(--light);padding:24px;border-radius:var(--radius);">
+          <h3 style="color:var(--navy);margin-bottom:12px;"><i class="fa-solid fa-book"></i> Cite</h3>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Each dataset includes instructions for proper citation in your research.</p>
+          <a href="data/datasets/README.md" class="btn btn-outline" style="font-size:13px;">
+            <i class="fa-solid fa-file"></i> Citation Guide
+          </a>
+        </div>
+      </div>
+
+      <div style="background:rgba(46,156,202,.05);border-left:4px solid var(--sky);padding:20px;border-radius:4px;">
+        <h3 style="color:var(--navy);margin-bottom:8px;"><i class="fa-solid fa-lightbulb"></i> NetCDF4 Format</h3>
+        <p style="font-size:14px;color:var(--muted);margin:0;">
+          Most datasets are in NetCDF4 (CF-compliant) format. Open with: <code style="background:var(--white);padding:2px 6px;border-radius:3px;">xarray</code> (Python), <code style="background:var(--white);padding:2px 6px;border-radius:3px;">ncdf4</code> (R), or CDO.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ───────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="cta-banner">
+      <h2>Need Custom Processing?</h2>
+      <p>Contact the institutions leading each dataset for custom subsetting, regridding, or collaboration on new analysis.</p>
+      <div class="btns">
+        <a href="team.html" class="btn btn-primary"><i class="fa-solid fa-people-group"></i> Meet the Team</a>
+        <a href="mailto:doan.van.gb@u.tsukuba.ac.jp" class="btn btn-outline"><i class="fa-solid fa-envelope"></i> Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>HiClimaX</h3>
+        <p>A High-resolution Climate Downscaling Multi-Approach System. Open-source, ensemble-based, urban-focused.</p>
+        <br>
+        <p style="font-size:13px;">Center for Computational Sciences<br>University of Tsukuba, Japan</p>
+      </div>
+      <div class="footer-col">
+        <h4>Framework</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#methods">Methods</a></li>
+          <li><a href="https://github.com/HiClimaX">GitHub</a></li>
+          <li><a href="#">Documentation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="index.html#cities">Case Studies</a></li>
+          <li><a href="datasets.html">Datasets</a></li>
+          <li><a href="#">Publications</a></li>
+          <li><a href="team.html">Team</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="#">Contributing</a></li>
+          <li><a href="#">Discord</a></li>
+          <li><a href="#">Roadmap</a></li>
+          <li><a href="mailto:doan.van.gb@u.tsukuba.ac.jp">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 HiClimaX · University of Tsukuba · MIT Licence · Built for the climate community</p>
+      <div class="social-links">
+        <a href="https://github.com/HiClimaX"><i class="fa-brands fa-github"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="mailto:doan.van.gb@u.tsukuba.ac.jp"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Parse CSV
+  function parseCSV(text) {
+    const lines = text.split('\n').filter(line => line.trim());
+    if (lines.length < 2) return [];
+    
+    const headers = lines[0].split(',').map(h => h.trim());
+    const data = [];
+    
+    for (let i = 1; i < lines.length; i++) {
+      const values = lines[i].split(',').map(v => v.trim());
+      const row = {};
+      headers.forEach((header, idx) => {
+        row[header] = values[idx] || '';
+      });
+      data.push(row);
+    }
+    return data;
+  }
+
+  // Load datasets
+  let allDatasets = [];
+  let filteredDatasets = [];
+  let activeFilters = { status: 'all', method: 'all' };
+
+  async function loadDatasets() {
+    try {
+      console.log('🔄 Loading datasets...');
+      
+      let csvData = null;
+      try {
+        const response = await fetch('data/datasets/datasets.csv');
+        if (response.ok) {
+          const text = await response.text();
+          csvData = parseCSV(text);
+          console.log('✅ CSV loaded:', csvData.length, 'datasets');
+        }
+      } catch (fetchError) {
+        console.warn('⚠️ Fetch error:', fetchError.message);
+      }
+      
+      if (!csvData || csvData.length === 0) {
+        console.warn('⚠️ No CSV data, using demo');
+        csvData = getDemoDatasets();
+      }
+      
+      allDatasets = csvData;
+      filteredDatasets = csvData;
+      
+      renderStats();
+      renderDatasets();
+      setupFilters();
+      animateOnScroll();
+      console.log('✅ Datasets page loaded!');
+    } catch (error) {
+      console.error('❌ Error:', error);
+    }
+  }
+
+  function renderStats() {
+    const stats = document.getElementById('stats-grid');
+    const available = allDatasets.filter(d => d.status === 'Available').length;
+    const total = allDatasets.length;
+    const totalSize = allDatasets.reduce((sum, d) => {
+      const match = d.size.match(/(\d+(?:\.\d+)?)\s*(GB|TB)/);
+      if (match) {
+        let bytes = parseFloat(match[1]);
+        if (match[2] === 'TB') bytes *= 1024;
+        return sum + bytes;
+      }
+      return sum;
+    }, 0);
+
+    stats.innerHTML = `
+      <div class="stat-card fade-up">
+        <div class="stat-number">${total}</div>
+        <div class="stat-label">Datasets</div>
+      </div>
+      <div class="stat-card fade-up-2">
+        <div class="stat-number">${available}</div>
+        <div class="stat-label">Ready to Download</div>
+      </div>
+      <div class="stat-card fade-up-3">
+        <div class="stat-number">${(totalSize / 1024).toFixed(1)}</div>
+        <div class="stat-label">TB Total</div>
+      </div>
+    `;
+  }
+
+  function renderDatasets() {
+    const grid = document.getElementById('datasets-grid');
+    const count = document.getElementById('dataset-count');
+    
+    count.textContent = filteredDatasets.length === allDatasets.length 
+      ? `Showing all ${allDatasets.length} datasets`
+      : `${filteredDatasets.length} of ${allDatasets.length} datasets`;
+    
+    grid.innerHTML = filteredDatasets.map(d => `
+      <div class="dataset-card fade-up">
+        <div class="dataset-header">
+          <div class="dataset-name">${d.name}</div>
+          <div class="dataset-domain"><i class="fa-solid fa-map-pin"></i> ${d.domain}</div>
+        </div>
+        
+        <div class="dataset-methods">
+          ${d.methods.split('·').map(m => `<span class="method-badge">${m.trim()}</span>`).join('')}
+        </div>
+        
+        <div class="dataset-meta">
+          <div class="dataset-meta-item">
+            <span class="dataset-meta-label">Resolution</span>
+            <span class="dataset-meta-value">${d.spatial_res}</span>
+          </div>
+          <div class="dataset-meta-item">
+            <span class="dataset-meta-label">Coverage</span>
+            <span class="dataset-meta-value">${d.temporal_coverage}</span>
+          </div>
+          <div class="dataset-meta-item">
+            <span class="dataset-meta-label">Frequency</span>
+            <span class="dataset-meta-value">${d.frequency}</span>
+          </div>
+          <div class="dataset-meta-item">
+            <span class="dataset-meta-label">Size</span>
+            <span class="dataset-meta-value">${d.size}</span>
+          </div>
+        </div>
+        
+        <div class="dataset-variables">
+          <strong>Variables:</strong> ${d.variables.split('·').map(v => v.trim()).join(' • ')}
+        </div>
+        
+        <div class="dataset-footer">
+          <span class="dataset-status status-${getStatusClass(d.status)}">${d.status}</span>
+          <div class="dataset-actions">
+            ${d.access_url ? `<a href="${d.access_url}" title="Download" target="_blank"><i class="fa-solid fa-download"></i></a>` : ''}
+            ${d.doi && d.doi !== 'preprint' ? `<a href="https://doi.org/${d.doi}" title="View DOI" target="_blank"><i class="fa-solid fa-link"></i></a>` : ''}
+          </div>
+        </div>
+      </div>
+    `).join('');
+    
+    animateOnScroll();
+  }
+
+  function getStatusClass(status) {
+    if (status === 'Available') return 'available';
+    if (status === 'In Review') return 'review';
+    if (status === 'Under Curation') return 'curation';
+    return 'coming';
+  }
+
+  function setupFilters() {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const filterType = this.dataset.filter;
+        const filterValue = this.dataset.value;
+        
+        // Update active state
+        document.querySelectorAll(`[data-filter="${filterType}"]`).forEach(b => {
+          b.classList.remove('active');
+        });
+        this.classList.add('active');
+        
+        // Update filter
+        activeFilters[filterType] = filterValue;
+        applyFilters();
+      });
+    });
+  }
+
+  function applyFilters() {
+    filteredDatasets = allDatasets.filter(d => {
+      const statusMatch = activeFilters.status === 'all' || d.status === activeFilters.status;
+      const methodMatch = activeFilters.method === 'all' || d.methods.includes(activeFilters.method);
+      return statusMatch && methodMatch;
+    });
+    renderDatasets();
+  }
+
+  function getDemoDatasets() {
+    return [
+      {
+        id: 'tokyo-dd-2020-2100',
+        name: 'Tokyo Dynamical Downscaling 2050/2100',
+        domain: 'Tokyo metro area',
+        methods: 'D-DS',
+        spatial_res: '4 km',
+        temporal_coverage: '2020-2100',
+        variables: 'Tmax·Tmin·Precip·Wind·SolarRad',
+        frequency: 'Daily',
+        status: 'Available',
+        doi: '10.5281/zenodo.tokyo-dd-2020',
+        institution: 'Tokyo Metropolitan University',
+        size: '42 GB',
+        access_url: 'https://zenodo.org/datasets/tokyo-dd-2020'
+      },
+      {
+        id: 'hcmc-pgw-extremes',
+        name: 'Ho Chi Minh City Pseudo-Global Warming',
+        domain: 'Mekong Delta',
+        methods: 'PGW',
+        spatial_res: '1 km',
+        temporal_coverage: '2010-2050',
+        variables: 'ExtremeRain·Heatwaves·SeaLevel',
+        frequency: 'Event-based',
+        status: 'Available',
+        doi: '10.5281/zenodo.hcmc-pgw-ext',
+        institution: 'University of Science Vietnam',
+        size: '18 GB',
+        access_url: 'https://zenodo.org/datasets/hcmc-pgw-extremes'
+      }
+    ];
+  }
+
+  // Intersection Observer for scroll animations
+  function animateOnScroll() {
+    const elements = document.querySelectorAll('[class*="fade-up"]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = `fadeUp .6s ease forwards`;
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    elements.forEach((el, idx) => {
+      const delay = idx * 0.1;
+      el.style.opacity = '0';
+      el.style.animationDelay = `${delay}s`;
+      observer.observe(el);
+    });
+  }
+
+  // Load on page ready
+  document.addEventListener('DOMContentLoaded', loadDatasets);
+</script>
+</body>
+</html>

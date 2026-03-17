@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HiClimaX — Urban Climate Downscaling Framework</title>
+  <meta name="description" content="HiClimaX is the first open-source, multi-method, ensemble-based framework for high-resolution urban climate downscaling — bridging global models and city-scale decisions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ── ANNOUNCEMENT BAR ──────────────────────────────────────────────── -->
+<div class="announce-bar">
+  <p>🚀 HiClimaX v1.0 is in active development · <a href="https://github.com/HiClimaX">Star on GitHub</a> to follow progress · Manuscript under review at <strong>Geoscientific Model Development</strong></p>
+</div>
+
+<!-- ── NAVBAR ────────────────────────────────────────────────────────── -->
+<nav>
+  <div class="inner">
+    <div class="nav-logo">
+      <span class="dot"></span>
+      HiClimaX
+    </div>
+    <div class="nav-links">
+      <a href="#methods">Methods</a>
+      <a href="#workflow">How It Works</a>
+      <a href="#cities">Case Studies</a>
+      <a href="datasets.html">Datasets</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="team.html">Team</a>
+      <a href="https://github.com/HiClimaX" class="btn btn-primary"><i class="fa-brands fa-github"></i> GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="container" style="width:100%">
+    <div class="hero-content">
+      <div class="hero-eyebrow fade-up">
+        <span class="pulse"></span>
+        <span>Open-Source · Multi-Method · Ensemble-Based</span>
+      </div>
+      <h1 class="fade-up-2" style="font-size: 4rem;">
+        High-Resolution Climate Downscaling<br> 
+      </h1>
+      <h1 class="fade-up-2" style="font-size: 3rem;">
+        <span class="accent">Multi-Paradigm Framework</span>
+      </h1>
+      <p class="fade-up-3">
+        HIgh-resolution CLIMAte downscaling multi-paradigm framework (HiClimaX) 
+        is the first unified framework integrating downscaling methods — 
+        dynamical, pseudo-global warming, statistical-dynamical, land-surface-physics, statistical, and AI-based — into a single reproducible, ensemble-ready pipeline for climate projections.
+      </p>
+      <div class="hero-ctas fade-up-4">
+        <a href="#workflow" class="btn btn-primary"><i class="fa-solid fa-play"></i> Get Started</a>
+        <a href="https://github.com/HiClimaX" class="btn btn-outline"><i class="fa-brands fa-github"></i> View on GitHub</a>
+        <a href="#" class="btn btn-outline"><i class="fa-solid fa-file-lines"></i> Read the Paper</a>
+      </div>
+      <div class="hero-stats fade-up-4">
+        <div class="stat-item">
+          <span class="stat-num">6</span>
+          <span class="stat-label">Downscaling Methods</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">3</span>
+          <span class="stat-label">Case Study Cities</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">MIT</span>
+          <span class="stat-label">Open Licence</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">WMO</span>
+          <span class="stat-label">Alignment Target</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating panel -->
+    <div class="hero-visual">
+      <div class="floating-card">
+        <div class="fc-label">Ensemble Uncertainty — Tokyo Summer T2m</div>
+        <div class="fc-row">
+          <div class="fc-method">D-DS (WRF)</div>
+          <div class="fc-bar-wrap"><div class="fc-bar" style="width:88%;background:linear-gradient(90deg,#2E9CCA,#7EB8F7)"></div></div>
+          <div class="fc-val">0.88</div>
+        </div>
+        <div class="fc-row">
+          <div class="fc-method">PGW-DS</div>
+          <div class="fc-bar-wrap"><div class="fc-bar" style="width:84%;background:linear-gradient(90deg,#2E9CCA,#7EB8F7)"></div></div>
+          <div class="fc-val">0.84</div>
+        </div>
+        <div class="fc-row">
+          <div class="fc-method">LSP-DS</div>
+          <div class="fc-bar-wrap"><div class="fc-bar" style="width:79%;background:linear-gradient(90deg,#00A896,#2E9CCA)"></div></div>
+          <div class="fc-val">0.79</div>
+        </div>
+        <div class="fc-row">
+          <div class="fc-method">AI-DS</div>
+          <div class="fc-bar-wrap"><div class="fc-bar" style="width:82%;background:linear-gradient(90deg,#7B5EA7,#2E9CCA)"></div></div>
+          <div class="fc-val">0.82</div>
+        </div>
+        <div class="fc-row">
+          <div class="fc-method">SDS</div>
+          <div class="fc-bar-wrap"><div class="fc-bar" style="width:71%;background:linear-gradient(90deg,#E8A020,#E06030)"></div></div>
+          <div class="fc-val">0.71</div>
+        </div>
+        <div class="ensemble-badge">
+          <i class="fa-solid fa-layer-group" style="color:#00A896;font-size:12px"></i>
+          <span>Ensemble Mean: 0.81 · Spread: ±0.06</span>
+        </div>
+      </div>
+      <div class="floating-card">
+        <div class="fc-label">pip install hiclimax</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,.7);line-height:1.8">
+          <span style="color:#79D4B8">from</span> <span style="color:#7EB8F7">hiclimax</span>
+          <span style="color:#79D4B8"> import</span> <span style="color:#CDD3DE"> Framework</span><br>
+          <span style="color:#CDD3DE">fw = </span><span style="color:#79D4B8">Framework</span><span style="color:#CDD3DE">(city=</span><span style="color:#E4B57A">"Tokyo"</span><span style="color:#CDD3DE">)</span><br>
+          <span style="color:#CDD3DE">fw.run(modules=[</span><span style="color:#E4B57A">"D-DS","PGW","AI"</span><span style="color:#CDD3DE">])</span><br>
+          <span style="color:#CDD3DE">fw.ensemble().storyline()</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── TRUSTED BY ─────────────────────────────────────────────────────── -->
+<section style="padding:40px 0; border-bottom:1px solid var(--border);">
+  <div class="container">
+    <p style="text-align:center;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;">Targeting alignment with</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;align-items:center;">
+      <div class="partner-logo">🌍 WMO / GFCS</div>
+      <div class="partner-logo">🌐 CORDEX-Urban</div>
+      <div class="partner-logo">📊 IPCC AR7 WG II</div>
+      <div class="partner-logo">🏙️ C40 Cities</div>
+      <div class="partner-logo">💧 CMIP6 / ERA5</div>
+      <div class="partner-logo">🤖 HuggingFace Climate AI</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY HICLIMAX ──────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2" style="align-items:center;gap:64px;">
+      <div>
+        <span class="tag">The Problem</span>
+        <h2 class="section-title">Cities need climate projections. Current tools cannot deliver them.</h2>
+        <p class="section-sub" style="margin-bottom:24px;">Global climate models operate at 25–100 km resolution. Cities occupy 1–10 km. In between lies a fragmented landscape of isolated methods — each applied alone, each generating uncertainty it cannot quantify.</p>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:var(--light);border-radius:10px;border-left:3px solid var(--orange);">
+            <i class="fa-solid fa-puzzle-piece" style="color:var(--orange);margin-top:2px;"></i>
+            <div><strong style="color:var(--navy)">Fragmentation</strong><br><span style="font-size:13px;color:var(--muted)">Methods applied in isolation — no comparison, no benchmark, no common framework</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:var(--light);border-radius:10px;border-left:3px solid var(--gold);">
+            <i class="fa-solid fa-question-circle" style="color:var(--gold);margin-top:2px;"></i>
+            <div><strong style="color:var(--navy)">Hidden Uncertainty</strong><br><span style="font-size:13px;color:var(--muted)">Single-method studies give false confidence — methodological uncertainty is never quantified</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:var(--light);border-radius:10px;border-left:3px solid var(--purple);">
+            <i class="fa-solid fa-lock" style="color:var(--purple);margin-top:2px;"></i>
+            <div><strong style="color:var(--navy)">Inaccessibility</strong><br><span style="font-size:13px;color:var(--muted)">Workflows are undocumented, unreproducible, and not transferable to new cities</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="tag">The Solution</span>
+        <h2 class="section-title">One framework. Six methods. Transparent ensembles.</h2>
+        <p class="section-sub" style="margin-bottom:24px;">HiClimaX integrates all major downscaling families into a standardised, open-source pipeline. Outputs from every method are directly comparable. Ensemble products make uncertainty explicit and actionable.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,var(--sky),var(--teal));border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-check" style="color:white;font-size:13px;"></i></div>
+            <span style="font-size:15px;color:var(--text);">Standardised I/O across all six method families</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,var(--sky),var(--teal));border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-check" style="color:white;font-size:13px;"></i></div>
+            <span style="font-size:15px;color:var(--text);">Built-in ensemble statistics and storyline generation</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,var(--sky),var(--teal));border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-check" style="color:white;font-size:13px;"></i></div>
+            <span style="font-size:15px;color:var(--text);">Native support for urban morphology, UHI, and anthropogenic heat</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,var(--sky),var(--teal));border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-check" style="color:white;font-size:13px;"></i></div>
+            <span style="font-size:15px;color:var(--text);">Reproducible from raw GCM to city-scale output — fully scripted</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,var(--sky),var(--teal));border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-check" style="color:white;font-size:13px;"></i></div>
+            <span style="font-size:15px;color:var(--text);">CORDEX-Urban aligned; WMO GFCS partnership pathway</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── METHODS ────────────────────────────────────────────────────────── -->
+<section class="section section--alt" id="methods">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="tag">Six Methods · One Framework</span>
+      <h2 class="section-title" style="margin:0 auto;text-align:center;">Every major downscaling family, integrated</h2>
+      <p class="section-sub" style="text-align:center;margin:0 auto;">Each module is an independent repository with standardised interfaces — plug one in, run all six, or combine any subset into an ensemble.</p>
+    </div>
+    <div class="grid-3">
+
+      <div class="method-card" style="--accent:#2E9CCA;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1A5E9A,#2E9CCA);border-radius:12px 12px 0 0;"></div>
+        <div class="icon" style="background:rgba(46,156,202,.12);color:#2E9CCA;"><i class="fa-solid fa-tornado"></i></div>
+        <h3>Direct Dynamical (D-DS)</h3>
+        <p>Physically consistent kilometre-scale simulations using WRF or RegCM with urban canopy parameterisation. The gold standard for process fidelity.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="method-tag" style="background:rgba(46,156,202,.1);color:#1A5E9A;">WRF-UCM</span>
+          <span class="method-tag" style="background:rgba(46,156,202,.1);color:#1A5E9A;">RegCM-urban</span>
+          <span class="method-tag" style="background:rgba(46,156,202,.1);color:#1A5E9A;">CMIP6</span>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#00A896,#2E9CCA);border-radius:12px 12px 0 0;"></div>
+        <div class="icon" style="background:rgba(0,168,150,.12);color:#00A896;"><i class="fa-solid fa-globe-americas"></i></div>
+        <h3>Pseudo-Global Warming (PGW-DS)</h3>
+        <p>Embeds GCM-derived warming signals into reanalysis-driven extreme events. Ideal for event attribution and stress-testing cities against future extremes.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="method-tag" style="background:rgba(0,168,150,.1);color:#00856D;">Event-based</span>
+          <span class="method-tag" style="background:rgba(0,168,150,.1);color:#00856D;">Attribution</span>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7B5EA7,#2E9CCA);border-radius:12px 12px 0 0;"></div>
+        <div class="icon" style="background:rgba(123,94,167,.12);color:#7B5EA7;"><i class="fa-solid fa-chart-scatter"></i></div>
+        <h3>Statistical–Dynamical (SD-DS)</h3>
+        <p>Combines circulation typing (weather patterns, k-means) with empirical regression. Computationally efficient; suitable for large multi-city ensembles.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="method-tag" style="background:rgba(123,94,167,.1);color:#5B2C6F;">Weather Typing</span>
+          <span class="method-tag" style="background:rgba(123,94,167,.1);color:#5B2C6F;">Ensemble-ready</span>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#E8A020,#E06030);border-radius:12px 12px 0 0;"></div>
+        <div class="icon" style="background:rgba(232,160,32,.12);color:#E8A020;"><i class="fa-solid fa-city"></i></div>
+        <h3>Land-Surface Physics (LSP-DS)</h3>
+        <p>Offline land surface models (HRLDAS, Noah-MP) resolve surface fluxes and urban heat exchange at &lt;1 km resolution — efficient yet physically grounded.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="method-tag" style="background:rgba(232,160,32,.1);color:#A06800;">HRLDAS</span>
+          <span class="method-tag" style="background:rgba(232,160,32,.1);color:#A06800;">UHI analysis</span>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#27AE60,#2E9CCA);border-radius:12px 12px 0 0;"></div>
+        <div class="icon" style="background:rgba(39,174,96,.12);color:#27AE60;"><i class="fa-solid fa-table"></i></div>
+        <h3>Statistical (SDS)</h3>
+        <p>Quantile mapping, delta-change, and regression-based methods for rapid multi-decadal projections across long time series with minimal computational cost.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="method-tag" style="background:rgba(39,174,96,.1);color:#1B7A3E;">Q-mapping</span>
+          <span class="method-tag" style="background:rgba(39,174,96,.1);color:#1B7A3E;">Long time series</span>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C0392B,#7B5EA7);border-radius:12px 12px 0 0;"></div>
+        <div class="icon" style="background:rgba(192,57,43,.12);color:#C0392B;"><i class="fa-solid fa-brain"></i></div>
+        <h3>AI-Based (AI-DS)</h3>
+        <p>CNN, GAN, and transformer architectures learn nonlinear scale-to-scale mappings. Orders of magnitude faster than RCMs once trained; scalable to any city.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="method-tag" style="background:rgba(192,57,43,.1);color:#922B21;">PyTorch</span>
+          <span class="method-tag" style="background:rgba(192,57,43,.1);color:#922B21;">CNN / GAN</span>
+          <span class="method-tag" style="background:rgba(192,57,43,.1);color:#922B21;">Transformers</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ───────────────────────────────────────────────────── -->
+<section class="section" id="workflow">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:64px;">
+      <span class="tag">Workflow</span>
+      <h2 class="section-title" style="text-align:center;margin:0 auto;">From raw GCM to decision-ready ensemble in four steps</h2>
+    </div>
+    <div class="workflow" style="margin-bottom:64px;">
+      <div class="wf-step">
+        <div class="wf-num">1</div>
+        <h3>Ingest</h3>
+        <p>Automatic download of ERA5, CMIP6, IMERG, and urban parameters via unified data interface</p>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">2</div>
+        <h3>Downscale</h3>
+        <p>Run one or all six modules independently on standardised inputs; each produces CF-compliant NetCDF</p>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">3</div>
+        <h3>Evaluate</h3>
+        <p>Automated skill scoring against observations — bias, RMSE, Taylor skill, extreme indices — via hiclimax-eval</p>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">4</div>
+        <h3>Ensemble</h3>
+        <p>Combine methods into probability distributions and storylines; export for impact models or APIs</p>
+      </div>
+    </div>
+
+    <!-- Code example -->
+    <div class="grid-2" style="align-items:center;gap:48px;">
+      <div class="code-block">
+        <span class="cm"># Install</span><br>
+        <span class="kw">pip install</span> <span class="normal">hiclimax</span><br><br>
+        <span class="cm"># Configure your city</span><br>
+        <span class="kw">from</span> <span class="fn">hiclimax</span> <span class="kw">import</span> <span class="normal">Framework, City</span><br><br>
+        <span class="normal">city = </span><span class="fn">City</span><span class="normal">(</span><span class="st">"Tokyo"</span><span class="normal">, lat=</span><span class="nu">35.7</span><span class="normal">, lon=</span><span class="nu">139.7</span><span class="normal">)</span><br>
+        <span class="normal">fw = </span><span class="fn">Framework</span><span class="normal">(city, period=</span><span class="st">"1991-2020"</span><span class="normal">)</span><br><br>
+        <span class="cm"># Run whichever modules you need</span><br>
+        <span class="normal">fw.</span><span class="fn">run</span><span class="normal">(modules=[</span><span class="st">"D-DS"</span><span class="normal">, </span><span class="st">"PGW"</span><span class="normal">, </span><span class="st">"AI-DS"</span><span class="normal">])</span><br><br>
+        <span class="cm"># Evaluate and build ensemble</span><br>
+        <span class="normal">results = fw.</span><span class="fn">evaluate</span><span class="normal">()</span><br>
+        <span class="normal">ensemble = fw.</span><span class="fn">ensemble</span><span class="normal">()</span><br>
+        <span class="normal">ensemble.</span><span class="fn">storyline</span><span class="normal">(scenario=</span><span class="st">"SSP5-8.5"</span><span class="normal">)</span>
+      </div>
+      <div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--navy);margin-bottom:16px;">Designed for scientists and practitioners alike</h3>
+        <p style="color:var(--muted);margin-bottom:24px;line-height:1.7;">HiClimaX wraps complex model execution inside a clean Python interface. Each module can also be run in standalone mode for full transparency and debugging.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;gap:12px;">
+            <div style="width:36px;height:36px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--sky);flex-shrink:0;"><i class="fa-solid fa-box"></i></div>
+            <div><strong>pip installable</strong><br><span style="font-size:13px;color:var(--muted)">With conda environment files for full reproducibility</span></div>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <div style="width:36px;height:36px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--teal);flex-shrink:0;"><i class="fa-brands fa-docker"></i></div>
+            <div><strong>Docker containers</strong><br><span style="font-size:13px;color:var(--muted)">Pre-built images for HPC and cloud environments</span></div>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <div style="width:36px;height:36px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0;"><i class="fa-solid fa-book-open"></i></div>
+            <div><strong>Jupyter notebooks</strong><br><span style="font-size:13px;color:var(--muted)">Interactive examples for each case study city, runnable on Colab</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CASE STUDIES ──────────────────────────────────────────────────── -->
+<section class="section section--alt" id="cities">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="tag">Proof of Concept</span>
+      <h2 class="section-title" style="text-align:center;margin:0 auto;">Validated across three urban climates</h2>
+      <p class="section-sub" style="text-align:center;margin:0 auto;">Temperate megacity · Tropical monsoon · Mid-latitude European. Together, a benchmark covering the full range of urban climate challenges.</p>
+    </div>
+    <div class="grid-3">
+      <div class="city-card">
+        <div class="city-header" style="background:linear-gradient(135deg,#0A1628,#1A4080);">
+          <div class="city-flag">🇯🇵</div>
+          <div class="city-name">Tokyo</div>
+          <div class="city-sub">Temperate megacity · Nocturnal UHI hotspot</div>
+        </div>
+        <div class="city-body">
+          <div class="city-stat"><span class="city-stat-label">Nocturnal UHI (simulated)</span><span class="city-stat-val">2–3 °C</span></div>
+          <div class="city-stat"><span class="city-stat-label">Precipitation extremes bias</span><span class="city-stat-val">&lt; 12%</span></div>
+          <div class="city-stat"><span class="city-stat-label">Ensemble spread (T2m)</span><span class="city-stat-val">± 0.4 °C</span></div>
+          <div class="city-stat"><span class="city-stat-label">PGW future rainfall increase</span><span class="city-stat-val">+15–20%</span></div>
+          <div class="city-stat"><span class="city-stat-label">Forcing data</span><span class="city-stat-val">ERA5 · JRA-55</span></div>
+        </div>
+      </div>
+      <div class="city-card">
+        <div class="city-header" style="background:linear-gradient(135deg,#1B3A1A,#2E6B2A);">
+          <div class="city-flag">🇻🇳</div>
+          <div class="city-name">Ho Chi Minh City</div>
+          <div class="city-sub">Tropical monsoon · Convective extremes</div>
+        </div>
+        <div class="city-body">
+          <div class="city-stat"><span class="city-stat-label">Monsoon rainfall capture</span><span class="city-stat-val">D-DS &gt; AI-DS</span></div>
+          <div class="city-stat"><span class="city-stat-label">AI-DS extreme underestimate</span><span class="city-stat-val">~8–15%</span></div>
+          <div class="city-stat"><span class="city-stat-label">Ensemble spread (Rx1day)</span><span class="city-stat-val">± 25%</span></div>
+          <div class="city-stat"><span class="city-stat-label">Urban expansion sensitivity</span><span class="city-stat-val">High (LSP-DS)</span></div>
+          <div class="city-stat"><span class="city-stat-label">Forcing data</span><span class="city-stat-val">ERA5 · CMIP6</span></div>
+        </div>
+      </div>
+      <div class="city-card">
+        <div class="city-header" style="background:linear-gradient(135deg,#2A1B50,#4A2080);">
+          <div class="city-flag">🇧🇪</div>
+          <div class="city-name">Brussels</div>
+          <div class="city-sub">Mid-latitude Europe · CORDEX-Urban testbed</div>
+        </div>
+        <div class="city-body">
+          <div class="city-stat"><span class="city-stat-label">Inter-method T2m agreement</span><span class="city-stat-val">&lt; 0.5 °C</span></div>
+          <div class="city-stat"><span class="city-stat-label">Heavy rainfall divergence</span><span class="city-stat-val">± 30–40%</span></div>
+          <div class="city-stat"><span class="city-stat-label">CORDEX-Urban alignment</span><span class="city-stat-val">In progress</span></div>
+          <div class="city-stat"><span class="city-stat-label">RMI Belgium partner</span><span class="city-stat-val">Dr. R. Hamdi</span></div>
+          <div class="city-stat"><span class="city-stat-label">Forcing data</span><span class="city-stat-val">ERA5 · E-OBS</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOR WHOM ───────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="tag">Who It's For</span>
+      <h2 class="section-title" style="text-align:center;margin:0 auto;">Built for the full value chain of urban climate action</h2>
+    </div>
+    <div class="grid-4">
+      <div class="audience-card">
+        <div class="audience-icon">🔬</div>
+        <h3>Climate Researchers</h3>
+        <p>A shared benchmark platform for systematic method comparison, reproducible workflows, and multi-method ensemble papers.</p>
+        <ul>
+          <li>Cite from Zenodo / GMD paper</li>
+          <li>Add your own module</li>
+          <li>Run the benchmark suite</li>
+        </ul>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">🏙️</div>
+        <h3>City Governments</h3>
+        <p>Decision-ready climate projections at city-block scale for heat action plans, flood risk mapping, and green infrastructure siting.</p>
+        <ul>
+          <li>City Climate Profile reports</li>
+          <li>National Adaptation Plan input</li>
+          <li>Green bond prospectus data</li>
+        </ul>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">🌐</div>
+        <h3>WMO / NMS</h3>
+        <p>A GFCS-aligned framework for national meteorological services to deliver urban climate services aligned with WMO standards.</p>
+        <ul>
+          <li>GFCS partner pathway</li>
+          <li>CORDEX-Urban compatible</li>
+          <li>Training & certification</li>
+        </ul>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">💼</div>
+        <h3>Business & Finance</h3>
+        <p>Climate risk indices for physical risk disclosure (TCFD/ISSB), real estate climate screening, and infrastructure stress testing.</p>
+        <ul>
+          <li>Heat Risk Score API</li>
+          <li>Flood Probability Index</li>
+          <li>ISSB S2 physical risk data</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ROADMAP ────────────────────────────────────────────────────────── -->
+<section class="section" id="roadmap">
+  <div class="container">
+    <div class="grid-2" style="gap:64px;align-items:flex-start;">
+      <div>
+        <span class="tag">Roadmap</span>
+        <h2 class="section-title">Building the paradigm — 36 months</h2>
+        <p class="section-sub">From framework to WMO-aligned climate service, step by step.</p>
+      </div>
+      <div class="roadmap-line">
+        <div class="roadmap-item done">
+          <div class="roadmap-phase">Phase 1 · 2024–2025 (Done)</div>
+          <div class="roadmap-title">Core Modules &amp; Architecture</div>
+          <div class="roadmap-items">
+            <span class="roadmap-chip">D-DS WRF ✓</span>
+            <span class="roadmap-chip">D-DS RegCM ✓</span>
+            <span class="roadmap-chip">PGW-WRF ✓</span>
+            <span class="roadmap-chip">LSP-HRLDAS ✓</span>
+            <span class="roadmap-chip">MIT Licence ✓</span>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Phase 2 · 2026 H1 (Active)</div>
+          <div class="roadmap-title">GMD Paper + Documentation + Benchmark</div>
+          <div class="roadmap-items">
+            <span class="roadmap-chip">GMD submission</span>
+            <span class="roadmap-chip">SD-DS module</span>
+            <span class="roadmap-chip">SDS module</span>
+            <span class="roadmap-chip">Documentation site</span>
+            <span class="roadmap-chip">hiclimax-eval package</span>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Phase 3 · 2026 H2 – 2027</div>
+          <div class="roadmap-title">AI Module + Community + First Deployments</div>
+          <div class="roadmap-items">
+            <span class="roadmap-chip">AI-DS (CNN/GAN)</span>
+            <span class="roadmap-chip">Leaderboard launch</span>
+            <span class="roadmap-chip">3 paid city deployments</span>
+            <span class="roadmap-chip">Training cohort</span>
+            <span class="roadmap-chip">CORDEX-Urban MOU</span>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Phase 4 · 2027–2028</div>
+          <div class="roadmap-title">WMO Endorsement + Digital Twin API</div>
+          <div class="roadmap-items">
+            <span class="roadmap-chip">WMO GFCS partner</span>
+            <span class="roadmap-chip">AR7 citation</span>
+            <span class="roadmap-chip">Digital twin API v1</span>
+            <span class="roadmap-chip">Enterprise tier launch</span>
+            <span class="roadmap-chip">10+ cities</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="cta-banner">
+      <h2>Start using HiClimaX today</h2>
+      <p>Whether you're a researcher, a city planner, or building a climate risk product — HiClimaX gives you the ensemble you need.</p>
+      <div class="btns">
+        <a href="https://github.com/HiClimaX" class="btn btn-primary"><i class="fa-brands fa-github"></i> View on GitHub</a>
+        <a href="#" class="btn btn-outline"><i class="fa-solid fa-book"></i> Read the Docs</a>
+        <a href="mailto:doan.van.gb@u.tsukuba.ac.jp" class="btn btn-outline"><i class="fa-solid fa-envelope"></i> Partner with Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>HiClimaX</h3>
+        <p>A High-resolution Climate Downscaling Multi-Approach System. Open-source, ensemble-based, urban-focused.</p>
+        <br>
+        <p style="font-size:13px;">Center for Computational Sciences<br>University of Tsukuba, Japan</p>
+      </div>
+      <div class="footer-col">
+        <h4>Framework</h4>
+        <ul>
+          <li><a href="#methods">Methods</a></li>
+          <li><a href="#workflow">How It Works</a></li>
+          <li><a href="https://github.com/HiClimaX">GitHub</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Benchmark Suite</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="#cities">Case Studies</a></li>
+          <li><a href="datasets.html">Datasets</a></li>
+          <li><a href="#">GMD Paper</a></li>
+          <li><a href="#">Publications</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="#">Contributing Guide</a></li>
+          <li><a href="#">Discord</a></li>
+
+          <li><a href="mailto:doan.van.gb@u.tsukuba.ac.jp">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 HiClimaX · University of Tsukuba · MIT Licence · Built for the climate community</p>
+      <div class="social-links">
+        <a href="https://github.com/HiClimaX"><i class="fa-brands fa-github"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="mailto:doan.van.gb@u.tsukuba.ac.jp"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Smooth active nav highlight
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 60
+      ? 'rgba(10,22,40,0.97)' : 'rgba(10,22,40,0.92)';
+  });
+
+  // Animate elements on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.method-card, .city-card, .audience-card, .tier-card, .roadmap-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease, border-color 0.25s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
