@@ -33,6 +33,29 @@ data/team/
 
 ## Adding Team Members
 
+### Option A: Markdown (new)
+1. Open `data/team/members.md` in any text editor
+2. Add a member block with key/value fields separated by `---`
+3. Required keys: `name`, `role`, `affiliation`, `category`
+4. Optional keys: `emoji`, `photo`, `github`, `email`, `orcid`
+
+Example:
+
+```
+---
+name: Dr. Jane Doe
+role: Senior Researcher
+affiliation: Climate Research Lab · UC Berkeley · USA
+category: core
+emoji: 👩‍🔬
+photo: data/team/photos/jane-doe.jpg
+github: https://github.com/janedoe
+email: jane.doe@berkeley.edu
+orcid: https://orcid.org/0000-0001-2345-6789
+---
+```
+
+### Option B: CSV (existing)
 1. Open `data/team/members.csv` in any text editor or spreadsheet application
 2. Add a new row with required information (name, role, affiliation, category)
 3. Optionally:

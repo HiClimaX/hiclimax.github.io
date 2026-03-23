@@ -100,8 +100,8 @@
 <section class="section">
   <div class="container">
     <div style="text-align:center;margin-bottom:56px;">
-      <span class="tag">Core Team</span>
-      <h2 class="section-title" style="text-align:center;margin:0 auto;">Leadership & Architecture</h2>
+      <span class="tag">Coordinator</span>
+      <h2 class="section-title" style="text-align:center;margin:0 auto;">Coordinator & Architecture</h2>
     </div>
     <div class="grid-3" id="core-team-grid">
       <!-- Populated by JavaScript from team-data.csv -->
@@ -212,57 +212,121 @@
 </footer>
 
 <script>
-  // Parse CSV properly (handles quoted values)
-  function parseCSV(text) {
-    const lines = text.split('\n').filter(line => line.trim());
-    if (lines.length < 2) return [];
-    
-    const headers = lines[0].split(',').map(h => h.trim());
-    const data = [];
-    
-    for (let i = 1; i < lines.length; i++) {
-      const values = lines[i].split(',').map(v => v.trim());
-      const row = {};
-      headers.forEach((header, idx) => {
-        row[header] = values[idx] || '';
+  // Parse markdown team data from data/team/members.md
+  // Format: each member block starts with `---` and contains key: value pairs.
+  // Example:
+  // ---
+  // name: Dr. Jane Doe
+  // role: Senior Researcher
+  // affiliation: Climate Research Lab · UC Berkeley · USA
+  // category: core
+  // emoji: 👩‍🔬
+  // photo: data/team/photos/jane-doe.jpg
+  // github: https://github.com/janedoe
+  // email: jane.doe@berkeley.edu
+  // orcid: https://orcid.org/0000-0001-2345-6789
+  // ---
+  function parseMembersMarkdown(text) {
+    const blocks = [];
+    let member = null;
+
+    const flushMember = () => {
+      if (member && Object.keys(member).length > 0) {
+        blocks.push(member);
+      }
+      member = null;
+    };
+
+    text.split('\n').forEach(rawLine => {
+      const line = rawLine.replace(/\r$/, '').trim();
+      if (!line) return;
+
+      if (line === '---') {
+        flushMember();
+        return;
+      }
+
+      const kv = line.match(/^([a-zA-Z0-9_-]+)\s*:\s*(.*)$/);
+      if (!kv) return;
+
+      const key = kv[1].trim();
+      let value = kv[2].trim();
+
+      if ((value.startsWith('"') && value.endsWith('"')) ||
+          (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
+      }
+
+      if (!member) member = {};
+      member[key] = value;
+    });
+
+    flushMember();
+
+    // If no explicit separator is present, support a single-section markdown file
+    if (blocks.length === 0) {
+      member = {};
+      text.split('\n').forEach(rawLine => {
+        const line = rawLine.replace(/\r$/, '').trim();
+        if (!line || line === '---') return;
+
+        const kv = line.match(/^([a-zA-Z0-9_-]+)\s*:\s*(.*)$/);
+        if (!kv) return;
+        let [_, key, value] = kv;
+        key = key.trim();
+        value = value.trim();
+
+        if ((value.startsWith('"') && value.endsWith('"')) ||
+            (value.startsWith("'") && value.endsWith("'"))) {
+          value = value.slice(1, -1);
+        }
+
+        member[key] = value;
       });
-      data.push(row);
+      if (Object.keys(member).length > 0) blocks.push(member);
     }
-    return data;
+
+    return blocks;
   }
 
-  // Fetch and parse team data from CSV
+// Fetch and parse team data from Markdown
   async function loadTeamData() {
     try {
       console.log('🔄 Loading team data...');
       
-      // Try to load CSV
-      let csvData = null;
+      let teamData = null;
+
+      // Load markdown (data/team/members.md)
       try {
-        const response = await fetch('data/team/members.csv');
-        if (response.ok) {
-          const text = await response.text();
-          csvData = parseCSV(text);
-          console.log('✅ CSV loaded:', csvData.length, 'members');
+        const responseMd = await fetch('data/team/members.md');
+        if (responseMd.ok) {
+          const mdText = await responseMd.text();
+          const parsedMd = parseMembersMarkdown(mdText);
+          if (parsedMd.length > 0) {
+            teamData = parsedMd;
+            console.log('✅ Markdown loaded:', teamData.length, 'members');
+          } else {
+            console.warn('⚠️ Markdown parsed 0 members');
+          }
         } else {
-          console.warn('⚠️ CSV fetch failed:', response.status);
+          console.warn('⚠️ members.md not found:', responseMd.status);
         }
-      } catch (fetchError) {
-        console.warn('⚠️ Fetch error (might be file:// protocol):', fetchError.message);
+      } catch (mdError) {
+        console.warn('⚠️ members.md fetch error (might be file:// protocol):', mdError.message);
       }
       
-      // If no CSV data, show fallback message
-      if (!csvData || csvData.length === 0) {
-        console.warn('⚠️ No CSV data found, showing demo mode');
-        csvData = getDemoTeamData();
+      // If still no team data, fallback demo mode
+      if (!teamData || teamData.length === 0) {
+        console.warn('⚠️ No team data found, showing demo mode');
+        teamData = getDemoTeamData();
       }
-      
+
       // Organize by category
       const teams = {
-        core: csvData.filter(m => m.category === 'core'),
-        method: csvData.filter(m => m.category === 'method'),
-        regional: csvData.filter(m => m.category === 'regional'),
-        engineering: csvData.filter(m => m.category === 'engineering')
+        core: teamData.filter(m => m.category === 'core'),
+        method: teamData.filter(m => m.category === 'method'),
+        regional: teamData.filter(m => m.category === 'regional'),
+        engineering: teamData.filter(m => m.category === 'engineering')
       };
       
       console.log('📊 Teams:', {
@@ -376,12 +440,16 @@
       
       // Build avatar: emoji or placeholder
       let avatarHTML = member.emoji || '👤';
-      
-      // If photo exists, try to load it (with fallback to emoji)
+      let avatarLinkStart = '';
+      let avatarLinkEnd = '';
+
+      // If photo exists, wrap avatar in link and show image
       if (member.photo && member.photo.trim() !== '') {
-        avatarHTML = `<img src="${member.photo}" alt="${member.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.parentElement.innerHTML='${member.emoji || '👤'}'" />`;
+        avatarLinkStart = `<a href="${member.photo}" target="_blank" rel="noopener noreferrer" title="${member.name} photo">`;
+        avatarLinkEnd = '</a>';
+        avatarHTML = `<img src="${member.photo}" alt="${member.name}" style="width:100%; height:100%; object-fit:cover; border-radius:9999px;" onerror="this.outerHTML='${member.emoji || '👤'}'" />`;
       }
-      
+
       // Build social links (show what exists)
       let socialLinksHTML = '';
       
@@ -405,7 +473,7 @@
       card.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease, border-color 0.25s ease';
       
       card.innerHTML = `
-        <div class="team-avatar">${avatarHTML}</div>
+        <div class="team-avatar">${avatarLinkStart}${avatarHTML}${avatarLinkEnd}</div>
         <div class="team-name">${member.name || 'Unknown'}</div>
         <div class="team-role">${member.role || ''}</div>
         <div class="team-affiliation">${affiliation || ''}</div>
